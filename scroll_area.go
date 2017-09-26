@@ -27,11 +27,17 @@ func (s *ScrollArea) MinSizeHint() image.Point {
 	return image.ZP
 }
 
+// SizeHint returns the size hint of the underlying widget.
+func (s *ScrollArea) SizeHint() image.Point {
+	return s.Widget.SizeHint()
+}
+
 // SizePolicy returns the default layout behavior.
 func (s *ScrollArea) SizePolicy() (SizePolicy, SizePolicy) {
 	return Expanding, Expanding
 }
 
+// Scroll shifts the views over the content.
 func (s *ScrollArea) Scroll(dx, dy int) {
 	s.topLeft.X += dx
 	s.topLeft.Y += dy
@@ -48,6 +54,7 @@ func (s *ScrollArea) Draw(p *Painter) {
 	})
 }
 
+// Resize resizes the scroll area and the underlying widget.
 func (s *ScrollArea) Resize(size image.Point) {
 	s.WidgetBase.Resize(size)
 	s.Widget.Resize(s.Widget.SizeHint())
